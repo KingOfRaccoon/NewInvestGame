@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.castprogramms.newinvestgame.ui.profile.ProfileFragment" />
+    <fragment
+        android:id="@+id/allStockFragment"
+        android:name="com.castprogramms.newinvestgame.ui.stocks.AllStockFragment" >
+        <action
+            android:id="@+id/action_allStockFragment_to_stockFragment"
+            app:destination="@id/stockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.castprogramms.newinvestgame.ui.news.NewsFragment" />
+    <fragment
+        android:id="@+id/stockFragment"
+        android:name="com.castprogramms.newinvestgame.ui.stock.StockFragment" />
+</navigation>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NewInvestGame</string>
+
+    <string name="chart">Активы</string>
+    <string name="news">Новости</string>
+    <string name="profile">Профиль</string>
+</resources>

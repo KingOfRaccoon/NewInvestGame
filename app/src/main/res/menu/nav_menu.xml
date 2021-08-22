@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/allStockFragment"
+        android:icon="@drawable/chart"
+        android:checked="false"
+        android:title="@string/chart"/>
+    <item
+        android:id="@+id/newsFragment"
+        android:checked="false"
+        android:icon="@drawable/web"
+        android:title="@string/news"/>
+    <item
+        android:id="@+id/profileFragment"
+        android:checked="false"
+        android:icon="@drawable/person"
+        android:title="@string/profile"/>
+</menu>
