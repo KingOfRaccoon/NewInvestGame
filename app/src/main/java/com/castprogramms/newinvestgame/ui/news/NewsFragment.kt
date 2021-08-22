@@ -34,11 +34,11 @@ class NewsFragment: Fragment(R.layout.standart_fragment) {
 
     override fun onResume() {
         super.onResume()
-        (requireActivity() as MainActivity).isNewsFragment = true
+        (requireActivity() as MainActivity).isNewsFragment.postValue(true)
     }
 
     override fun onStop() {
         super.onStop()
-        (requireActivity() as MainActivity).isNewsFragment = false
+        (requireActivity() as MainActivity).isNewsFragment.postValue(false)
     }
 }

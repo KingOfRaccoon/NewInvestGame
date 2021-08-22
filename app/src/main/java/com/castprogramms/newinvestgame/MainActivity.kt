@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.contains
 import androidx.core.view.get
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,13 +24,13 @@ import com.google.android.material.textview.MaterialTextView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    var isNewsFragment = false
+    var isNewsFragment = MutableLiveData(false)
     var currentSize = 0
     private val viewModel: MainActivityViewModel by viewModel()
 
     private lateinit var navController: NavController
     private lateinit var navMenu: BottomNavigationView
-    val badge by lazy { layoutInflater.inflate(R.layout.badge_layout, navMenu, false) }
+    private val badge by lazy { layoutInflater.inflate(R.layout.badge_layout, navMenu, false) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +45,17 @@ class MainActivity : AppCompatActivity() {
         )
 
         viewModel.getNews().observe(this, {
-            if (isNewsFragment)
+            if (isNewsFragment.value == true)
                 currentSize = it.size
             setBadgeNews(it.size - currentSize)
+        })
+
+        isNewsFragment.observe(this, {
+            if (it){
+                ((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView).removeView(
+                    badge
+                )
+            }
         })
 
 
