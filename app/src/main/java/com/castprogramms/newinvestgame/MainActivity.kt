@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navMenu: BottomNavigationView
     private val badge by lazy { layoutInflater.inflate(R.layout.badge_layout, navMenu, false) }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                 ((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView).removeView(
                     badge
                 )
+                currentSize = if (viewModel.getNews().value != null) viewModel.getNews().value!!.size else 0
             }
         })
 

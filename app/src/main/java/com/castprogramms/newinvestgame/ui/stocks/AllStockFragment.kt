@@ -2,33 +2,27 @@ package com.castprogramms.newinvestgame.ui.stocks
 
 import android.os.Bundle
 import android.view.View
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewTreeLifecycleOwner
 import com.castprogramms.newinvestgame.R
-import com.castprogramms.newinvestgame.databinding.StandartFragmentBinding
-import com.castprogramms.newinvestgame.tools.Companies
-import com.castprogramms.newinvestgame.tools.Stock
+import com.castprogramms.newinvestgame.databinding.FragmentAllStockBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AllStockFragment : Fragment(R.layout.standart_fragment) {
+class AllStockFragment : Fragment(R.layout.fragment_all_stock) {
+    private val viewModel : AllStockViewModel by viewModel()
 
-    @ExperimentalMaterialApi
-    @ExperimentalUnitApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().title = "Биржа"
-        val binding = StandartFragmentBinding.bind(view)
-        val layout = AllStockFragmentLayout {
-            findNavController().navigate(R.id.action_allStockFragment_to_stockFragment, it)
-        }
-        binding.compose.setContent {
-            layout.Main()
-            val listStock = mutableListOf<Stock>()
-            Companies.values().forEach {
-                listStock.add(Stock((300..400).random().toDouble(), it))
+        val binding = FragmentAllStockBinding.bind(view)
+        val adapter = AllStockAdapter()
+        binding.recyclerAllStocks.adapter = adapter
+
+        viewModel.getAllStock().observe(viewLifecycleOwner, {
+            it.minus(adapter.stocks).forEach {
+                adapter.addStock(it)
             }
-            layout.stocks.value = listStock.toList()
-        }
+        })
+
     }
 }

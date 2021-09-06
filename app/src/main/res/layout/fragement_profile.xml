@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_margin="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_profile"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="6dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintDimensionRatio="1:1"
+                android:id="@+id/image_user"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/male_user"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/content_desc_image_user"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/image_user"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/full_name"
+                    style="@style/textBlackWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/quantity_stocks"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    android:text="Имя Фамилия" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/quantity_stocks"
+                    style="@style/textBlackWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/quantity_money"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/full_name"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    android:text="Количество акций: 8" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/quantity_money"
+                    style="@style/textBlackWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quantity_stocks"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    android:text="Баланс: 120$" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        app:layout_constraintTop_toBottomOf="@id/card_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/card_for_stocks"
+        android:layout_margin="6dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="6dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.tabs.TabLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/title_profile_stock"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin">
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_profile_stocks" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_profile_stock"
+                android:id="@+id/recycler_stocks"
+                android:layout_margin="5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_stock"
+                app:shimmer_recycler_layout="@layout/shimmer_item_stock"
+                app:shimmer_recycler_item_count="5"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

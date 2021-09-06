@@ -4,4 +4,8 @@
     <string name="chart">Активы</string>
     <string name="news">Новости</string>
     <string name="profile">Профиль</string>
+    <string name="content_desc_image_user">Изображение пользователя</string>
+    <string name="title_profile_stocks">Ваши акции</string>
+    <string name="content_desc_image_stock">Логотип компании, которой принадлежит акция</string>
+    <string name="content_desc_image_new">Картинка новости</string>
 </resources>

@@ -25,9 +25,8 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.castprogramms.newinvestgame.R
-import com.castprogramms.newinvestgame.databinding.NewDialogBinding
+import com.castprogramms.newinvestgame.databinding.DialogNewBinding
 import com.castprogramms.newinvestgame.news.New
 
 class NewsFragmentLayout {
@@ -91,13 +90,13 @@ class NewsFragmentLayout {
     }
 
     private fun createFullTextAlertDialog(text: String, context: Context) {
-        val view = LayoutInflater.from(context).inflate(R.layout.new_dialog, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.dialog_new, null)
 
         val ad = AlertDialog.Builder(context)
             .setView(view)
             .create()
 
-        val binding = NewDialogBinding.bind(view)
+        val binding = DialogNewBinding.bind(view)
         binding.textBody.text = text
 
         if (ad.window != null)

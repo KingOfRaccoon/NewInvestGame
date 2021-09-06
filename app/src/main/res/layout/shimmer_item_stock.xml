@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:id="@+id/cardinal"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="6dp"
+    app:cardUseCompatPadding="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="14dp">
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.22"
+            android:id="@+id/vertical"/>
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/icon_comp"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/vertical"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:contentDescription="@string/content_desc_image_stock"
+            android:visibility="invisible"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/icon_comp"
+            app:layout_constraintBottom_toBottomOf="@id/icon_comp"
+            app:layout_constraintStart_toStartOf="@id/icon_comp"
+            app:layout_constraintEnd_toEndOf="@id/icon_comp"
+            android:background="@color/background"/>
+
+        <TextView
+            android:textSize="16sp"
+            style="@style/textBlackWhite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_comp"
+            android:id="@+id/name_stock"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:text="Stockkkkkkkkk"
+            android:visibility="invisible"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/name_stock"
+            app:layout_constraintBottom_toBottomOf="@id/name_stock"
+            app:layout_constraintStart_toStartOf="@id/name_stock"
+            app:layout_constraintEnd_toEndOf="@id/name_stock"
+            android:background="@color/background"/>
+
+        <TextView
+            style="@style/textBlackWhite"
+            app:layout_constraintTop_toBottomOf="@id/name_stock"
+            app:layout_constraintStart_toEndOf="@id/icon_comp"
+            android:id="@+id/cost_stock"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:text="$123.56"
+            android:visibility="invisible"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/cost_stock"
+            app:layout_constraintBottom_toBottomOf="@id/cost_stock"
+            app:layout_constraintStart_toStartOf="@id/cost_stock"
+            app:layout_constraintEnd_toEndOf="@id/cost_stock"
+            android:background="@color/background"/>
+
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/quantity_stock"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:text="1"
+            style="@style/textBlackWhite"
+            android:textSize="22sp"
+            android:visibility="invisible"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/quantity_stock"
+            app:layout_constraintBottom_toBottomOf="@id/quantity_stock"
+            app:layout_constraintStart_toStartOf="@id/quantity_stock"
+            app:layout_constraintEnd_toEndOf="@id/quantity_stock"
+            android:background="@color/background"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

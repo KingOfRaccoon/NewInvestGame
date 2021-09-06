@@ -1,6 +1,9 @@
 package com.castprogramms.newinvestgame.tools
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Handler
+import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -34,4 +37,17 @@ class Updater(var handler: Handler, var UPDATE_TIME: Long = 5000) : Runnable {
 // данный интерфейс реализуют классы, которые хотят получать обновления
 interface Up {
     fun update()
+}
+
+fun Context.lifecycleOwner(): LifecycleOwner? {
+    var curContext = this
+    var maxDepth = 20
+    while (maxDepth-- > 0 && curContext !is LifecycleOwner) {
+        curContext = (curContext as ContextWrapper).baseContext
+    }
+    return if (curContext is LifecycleOwner) {
+        curContext as LifecycleOwner
+    } else {
+        null
+    }
 }

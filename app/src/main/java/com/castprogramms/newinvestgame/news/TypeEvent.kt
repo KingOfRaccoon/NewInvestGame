@@ -1,3 +1,4 @@
+
 package com.castprogramms.newinvestgame.news
 
 enum class TypeEvent(

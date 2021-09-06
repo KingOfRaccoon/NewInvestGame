@@ -23,25 +23,25 @@ class GeneratorNews : Up {
         when (val place = getPlace()) {
             is PlaceInfluence.Company -> {
                 createFullNew(
-                    NewsPattern(typeEvent, place.company).toString(),
-                    place,
-                    typeEvent
+                        NewsPattern(typeEvent, place.company).toString(),
+                        place,
+                        typeEvent
                 )
             }
 
             is PlaceInfluence.Country -> {
                 createFullNew(
-                    NewsPattern(typeEvent, place.country).toString(),
-                    place,
-                    typeEvent
+                        NewsPattern(typeEvent, place.country).toString(),
+                        place,
+                        typeEvent
                 )
             }
 
             is PlaceInfluence.Industrial -> {
                 createFullNew(
-                    NewsPattern(typeEvent, place.industry).toString(),
-                    place,
-                    typeEvent
+                        NewsPattern(typeEvent, place.industry).toString(),
+                        place,
+                        typeEvent
                 )
             }
         }
@@ -50,26 +50,23 @@ class GeneratorNews : Up {
     private fun createFullNew(title: String, place: PlaceInfluence, typeEvent: TypeEvent) {
         Log.e("data", title)
         NewsService.getInstance().getJSONApi()
-            .post(RequestNew(title))
-            .enqueue(object : Callback<ResponseNew> {
-                override fun onResponse(call: Call<ResponseNew>, response: Response<ResponseNew>) {
-                    Log.e("sus", response.body()?.predictions.toString())
-                    news.postValue(news.value?.apply {
-                        add(
-                            0,
-                            New(
-                                typeEvent,
-                                place,
-                                response.body()?.predictions.toString()
-                            )
-                        )
-                    })
-                }
+                .post(RequestNew(title))
+                .enqueue(object : Callback<ResponseNew> {
+                    override fun onResponse(call: Call<ResponseNew>, response: Response<ResponseNew>) {
+                        val message = response.body()?.predictions.toString()
+                        Log.e("sus", message)
+                        if (checkMessage(message))
+                            news.postValue(news.value?.apply {
+                                add(0, New(typeEvent, place, message))
+                            })
+                        else
+                            Log.e("ALERT!!!!", message)
+                    }
 
-                override fun onFailure(call: Call<ResponseNew>, t: Throwable) {
-                    Log.e("error", t.message.toString())
-                }
-            })
+                    override fun onFailure(call: Call<ResponseNew>, t: Throwable) {
+                        Log.e("error", t.message.toString())
+                    }
+                })
     }
 
     private fun getPlace(): PlaceInfluence {
@@ -80,5 +77,16 @@ class GeneratorNews : Up {
             2 -> place.getIndustrial()
             else -> place.getCountry()
         }
+    }
+
+    private val stopWords = mutableListOf("Путин", "фашизм", "Гитлер")
+
+    fun checkMessage(message: String): Boolean {
+        stopWords.forEach {
+            if (message.contains(it, ignoreCase = true))
+                return false
+        }
+
+        return true
     }
 }

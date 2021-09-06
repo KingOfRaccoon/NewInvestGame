@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="norm_black">#353535</color>
     <color name="colorSuccess">#4BB543</color>
+
+    <color name="background">#dddddd</color>
 </resources>

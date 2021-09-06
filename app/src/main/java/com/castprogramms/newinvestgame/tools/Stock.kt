@@ -1,22 +1,28 @@
 package com.castprogramms.newinvestgame.tools
 
 import androidx.lifecycle.MutableLiveData
-import com.jjoe64.graphview.series.DataPoint
 
 data class Stock(var cost: Double, var companies: Companies): Up {
+    val name : String
+    get() = companies.nameCompany
 
-    var costs : MutableList<DataPoint> = mutableListOf() // Изменяемый список, который присваивается в LiveData
-    var costsofStock = MutableLiveData(costs) // LiveData, которая хранит в себе изменяемый список DataPoint
+    var costs : MutableList<Double> = mutableListOf() // Изменяемый список цен
+    var costsOfStock = MutableLiveData(costs) // LiveData, которая хранит в себе список цен
+
+    init {
+        costs.add(cost)
+        costsOfStock.value = costs
+    }
 
     override fun update() { // Переопределение функции из интерфейса Up
-        costs.add(DataPoint(costs.size.toDouble(), cost)) // Добавление в список новой серии значений
-        costsofStock.value = costs // Присвоение в хранилище списка с сериями данных
+        costs.add(cost) // Добавление в список новой серии значений
+        costsOfStock.value = costs // Присвоение в хранилище списка с сериями данных
     }
 
     fun updateCost(newCost: Double){
         cost = newCost
-        costs.add(DataPoint(costs.size.toDouble(), newCost)) // Добавление в список новой серии значений
-        costsofStock.value = costs // Присвоение в хранилище списка с сериями данных
+        costs.add(newCost) // Добавление в список новой серии значений
+        costsOfStock.value = costs // Присвоение в хранилище списка с сериями данных
     }
 
     override fun equals(other: Any?) =
