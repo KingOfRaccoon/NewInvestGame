@@ -1,12 +1,9 @@
 package com.castprogramms.newinvestgame
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.contains
 import androidx.core.view.get
@@ -50,11 +47,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         isNewsFragment.observe(this, {
-            if (it){
+            if (it) {
                 ((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView).removeView(
                     badge
                 )
-                currentSize = if (viewModel.getNews().value != null) viewModel.getNews().value!!.size else 0
+                currentSize =
+                    if (viewModel.getNews().value != null) viewModel.getNews().value!!.size else 0
             }
         })
 
@@ -69,8 +67,10 @@ class MainActivity : AppCompatActivity() {
         if (number > 0) {
             val badgeLayoutBinding = BadgeLayoutBinding.bind(badge)
             badgeLayoutBinding.number.text = if (number < 100) number.toString() else "99+"
-            Log.e("number", number.toString() + " " + badgeLayoutBinding.number.text.toString())
-            if (((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView).contains(badge))
+            if (((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView).contains(
+                    badge
+                )
+            )
                 ((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView)[2]
                     .findViewById<MaterialTextView>(R.id.number).text =
                     if (number < 100) number.toString() else "99+"
@@ -86,5 +86,15 @@ class MainActivity : AppCompatActivity() {
             ((navMenu.getChildAt(0) as BottomNavigationMenuView).getChildAt(1) as BottomNavigationItemView).removeView(
                 badge
             )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopGame()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.startGame()
     }
 }

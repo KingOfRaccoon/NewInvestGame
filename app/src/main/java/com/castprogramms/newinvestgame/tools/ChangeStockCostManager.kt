@@ -1,5 +1,6 @@
 package com.castprogramms.newinvestgame.tools
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.newinvestgame.network.Repository
 import com.castprogramms.newinvestgame.news.GeneratorNews
@@ -40,12 +41,15 @@ class ChangeStockCostManager(
     }
 
     private fun changePriceStockCompany(company: Companies, typeEvent: TypeEvent) {
+        Log.e("newsData", company.nameCompany + " " + typeEvent.name)
         if (listStock.value != null) {
             listStock.postValue(
                 listStock.value.apply {
                     this?.forEach {
                         if (it.companies == company)
                             it.updateCost(it.cost * (typeEvent.getIncreaseWithDelta()))
+                        else
+                            it.updateCost(it.cost)
                     }
                 }
             )
@@ -53,12 +57,15 @@ class ChangeStockCostManager(
     }
 
     private fun changePriceStockCountry(country: Countries, typeEvent: TypeEvent) {
+        Log.e("newsData", country.nameCountry + " " + typeEvent.name)
         if (listStock.value != null) {
             listStock.postValue(
                 listStock.value.apply {
                     this?.forEach {
                         if (it.companies.country == country)
                             it.updateCost(it.cost * (typeEvent.getIncreaseWithDelta()))
+                        else
+                            it.updateCost(it.cost)
                     }
                 }
             )
@@ -66,12 +73,15 @@ class ChangeStockCostManager(
     }
 
     private fun changePriceStockIndustrial(industries: Industries, typeEvent: TypeEvent) {
+        Log.e("newsData", industries.nameIndustry + " " + typeEvent.name)
         if (listStock.value != null) {
             listStock.postValue(
                 listStock.value.apply {
                     this?.forEach {
                         if (it.companies.industry == industries)
                             it.updateCost(it.cost * (typeEvent.getIncreaseWithDelta()))
+                        else
+                            it.updateCost(it.cost)
                     }
                 }
             )

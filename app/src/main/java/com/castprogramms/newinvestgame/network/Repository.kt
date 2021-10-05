@@ -3,22 +3,23 @@ package com.castprogramms.newinvestgame.network
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
+import com.castprogramms.newinvestgame.database.StockDataBase
 import com.castprogramms.newinvestgame.news.GeneratorNews
 import com.castprogramms.newinvestgame.tools.ChangeStockCostManager
 import com.castprogramms.newinvestgame.tools.Companies
 import com.castprogramms.newinvestgame.tools.Stock
 import com.castprogramms.newinvestgame.tools.Updater
 
-class Repository {
+class Repository(private val stockDataBase: StockDataBase) {
     private val generatorNews = GeneratorNews()
     private val listStock = MutableLiveData(mutableListOf<Stock>())
-    val changeStockCostManager by lazy { ChangeStockCostManager(generatorNews, listStock) }
+    private val changeStockCostManager by lazy { ChangeStockCostManager(generatorNews, getListStock()) }
+    private val handler = Handler(Looper.getMainLooper())
+    private val updater = Updater(handler)
 
     init {
-        val handler = Handler(Looper.getMainLooper())
-        val updater = Updater(handler)
         updater.objectsToUpdate.add(generatorNews)
-        handler.post(updater)
+        changeStockCostManager
     }
 
     fun getNews() = generatorNews.news
@@ -46,5 +47,15 @@ class Repository {
             Stock(Companies.Microsoft.cent, Companies.Microsoft),
             Stock(Companies.Huawei.cent, Companies.Huawei)
         )
+    }
+
+    fun stopGame(){
+        handler.removeCallbacks(updater)
+        updater.play = false
+    }
+
+    fun startGame(){
+        handler.post(updater)
+        updater.play = true
     }
 }

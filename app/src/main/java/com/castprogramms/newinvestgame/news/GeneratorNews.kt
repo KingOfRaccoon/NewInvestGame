@@ -54,10 +54,9 @@ class GeneratorNews : Up {
                 .enqueue(object : Callback<ResponseNew> {
                     override fun onResponse(call: Call<ResponseNew>, response: Response<ResponseNew>) {
                         val message = response.body()?.predictions.toString()
-                        Log.e("sus", message)
                         if (checkMessage(message))
                             news.postValue(news.value?.apply {
-                                add(0, New(typeEvent, place, message))
+                                add(New(typeEvent, place, message))
                             })
                         else
                             Log.e("ALERT!!!!", message)
@@ -86,7 +85,6 @@ class GeneratorNews : Up {
             if (message.contains(it, ignoreCase = true))
                 return false
         }
-
         return true
     }
 }

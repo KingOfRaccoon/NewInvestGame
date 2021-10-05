@@ -1,6 +1,9 @@
 package com.castprogramms.newinvestgame.tools
 
 import androidx.lifecycle.MutableLiveData
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 data class Stock(var cost: Double, var companies: Companies): Up {
     val name : String
@@ -10,18 +13,18 @@ data class Stock(var cost: Double, var companies: Companies): Up {
     var costsOfStock = MutableLiveData(costs) // LiveData, которая хранит в себе список цен
 
     init {
-        costs.add(cost)
+        costs.add(formatCost(cost))
         costsOfStock.value = costs
     }
 
     override fun update() { // Переопределение функции из интерфейса Up
-        costs.add(cost) // Добавление в список новой серии значений
+        costs.add(formatCost(cost)) // Добавление в список новой серии значений
         costsOfStock.value = costs // Присвоение в хранилище списка с сериями данных
     }
 
     fun updateCost(newCost: Double){
-        cost = newCost
-        costs.add(newCost) // Добавление в список новой серии значений
+        cost = formatCost(newCost)
+        costs.add(cost) // Добавление в список новой серии значений
         costsOfStock.value = costs // Присвоение в хранилище списка с сериями данных
     }
 
@@ -30,4 +33,11 @@ data class Stock(var cost: Double, var companies: Companies): Up {
             other.companies.nameCompany == this.companies.nameCompany
         else
             false
+
+    private fun formatCost(currentCost: Double): Double {
+        var decimal = BigDecimal(currentCost)
+        decimal = decimal.setScale(2, RoundingMode.CEILING)
+
+        return decimal.toDouble()
+    }
 }

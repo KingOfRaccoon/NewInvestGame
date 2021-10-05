@@ -25,7 +25,7 @@ class StockFragmentLayout {
     @Preview
     @Composable
     fun Main() {
-        LazyColumn(){
+        LazyColumn{
             item { StockGraphView() }
             item { Spacer(modifier = Modifier
                 .fillMaxWidth()

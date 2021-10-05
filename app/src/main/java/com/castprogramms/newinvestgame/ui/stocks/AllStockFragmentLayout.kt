@@ -30,7 +30,6 @@ import com.google.gson.Gson
 class AllStockFragmentLayout(val goToStockFragment: (Bundle) -> Unit) {
     var stocks = mutableStateOf(listOf<Stock>())
 
-    @Preview
     @ExperimentalMaterialApi
     @ExperimentalUnitApi
     @Composable

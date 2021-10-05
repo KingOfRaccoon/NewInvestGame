@@ -5,4 +5,6 @@ import com.castprogramms.newinvestgame.network.Repository
 
 class MainActivityViewModel(private val repository: Repository): ViewModel() {
     fun getNews() = repository.getNews()
+    fun stopGame() = repository.stopGame()
+    fun startGame() = repository.startGame()
 }
